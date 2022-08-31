@@ -130,6 +130,18 @@
                         <persistence type="property"/>
                     </attribute>
 
+                    <attribute qualifier="address" type="Address">
+                        <description>Customer Address.</description>
+                        <modifiers write="true" read="true" search="true" />
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="language" type="Language">
+                        <description>Customer Language.</description>
+                        <modifiers write="true" read="true" search="true" />
+                        <persistence type="property"/>
+                    </attribute>
+
                 </attributes>
             </itemtype>
 

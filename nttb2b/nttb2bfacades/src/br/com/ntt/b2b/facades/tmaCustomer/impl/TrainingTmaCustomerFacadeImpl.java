@@ -1,6 +1,6 @@
 package br.com.ntt.b2b.facades.tmaCustomer.impl;
 
-import br.com.ntt.b2b.Dto.TmaCustomerRequest;
+import br.com.ntt.b2b.facades.Dto.TmaCustomerRequest;
 import br.com.ntt.b2b.core.service.TrainingTmaCustomerService;
 import br.com.ntt.b2b.facades.populators.requestPopulators.TmaCustomerRequestConverter;
 import br.com.ntt.b2b.facades.populators.TrainingTmaCustomerPopulator;
@@ -8,18 +8,21 @@ import br.com.ntt.b2b.facades.populators.TrainingTmaCustomerReversePopulator;
 import br.com.ntt.b2b.facades.tmaCustomer.TrainingTmaCustomerFacade;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.core.model.user.CustomerModel;
+import de.hybris.platform.servicelayer.dto.converter.Converter;
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainingTmaCustomerFacadeImpl implements TrainingTmaCustomerFacade {
 
     private static final Logger LOGGER = Logger.getLogger(TrainingTmaCustomerFacadeImpl.class);
-
-    private TrainingTmaCustomerPopulator tmaCustomerPopulator;
     private TrainingTmaCustomerReversePopulator tmaCustomerReversePopulator;
     private TmaCustomerRequestConverter tmaCustomerRequestConverter;
-
     private TrainingTmaCustomerService tmaCustomerService;
+
+    private Converter<CustomerModel, CustomerData> customerConverter;
 
     @Override
     public CustomerData getTmaCustomerById(String tmaCustomerId) {
@@ -28,7 +31,7 @@ public class TrainingTmaCustomerFacadeImpl implements TrainingTmaCustomerFacade 
         LOGGER.info("...");
         LOGGER.info("Facade received tmaCustomerId to pass through tmaCustomerService to search for a CustomerProfile in the Data Base...");
 
-        return convertModelToData(tmaCustomerService.getTmaCustomerById(tmaCustomerId));
+        return customerConverter.convert(tmaCustomerService.getTmaCustomerById(tmaCustomerId));
     }
 
     @Override
@@ -58,7 +61,7 @@ public class TrainingTmaCustomerFacadeImpl implements TrainingTmaCustomerFacade 
         LOGGER.info("...");
         LOGGER.info("Facade received tmaCustomerData to be converted into tmaCustomerModel and pass through tmaCustomerService to update an existing Customer profile at the Data Base...");
 
-        return convertModelToData(tmaCustomerService.updateTmaCustomer(convertDataToModel(updatedTmaCustomerData)));
+        return customerConverter.convert(tmaCustomerService.updateTmaCustomer(convertDataToModel(updatedTmaCustomerData)));
     }
 
     @Override
@@ -74,6 +77,22 @@ public class TrainingTmaCustomerFacadeImpl implements TrainingTmaCustomerFacade 
         tmaCustomerRequestConverter.convertRequest(target,source);
     }
 
+    @Override
+    public List<CustomerData> getAllTmaCustomers() {
+        LOGGER.info("...");
+        LOGGER.info("...");
+        LOGGER.info("...");
+        LOGGER.info("Facade received the order to pass through tmaCustomerService to search for all existing CustomerProfile in the Data Base...");
+
+        List<CustomerData> tmaCustomerDataList = new ArrayList<>();
+        List<CustomerModel> tmaCustomerModelList = tmaCustomerService.getAllTmaCustomers();
+        for (CustomerModel tmaCustomerModel : tmaCustomerModelList) {
+            CustomerData tmaCustomerData = customerConverter.convert(tmaCustomerModel);
+            tmaCustomerDataList.add(tmaCustomerData);
+        }
+        return tmaCustomerDataList;
+    }
+
 
     private CustomerModel convertDataToModel(CustomerData tmaCustomerData) {
         CustomerModel tmaCustomerModel = new CustomerModel();
@@ -81,22 +100,6 @@ public class TrainingTmaCustomerFacadeImpl implements TrainingTmaCustomerFacade 
         getTmaCustomerReversePopulator().populate(tmaCustomerData, tmaCustomerModel);
 
         return tmaCustomerModel;
-    }
-
-    private CustomerData convertModelToData(CustomerModel tmaCustomerModel) {
-        CustomerData tmaCustomerData = new CustomerData();
-
-        getTmaCustomerPopulator().populate(tmaCustomerModel, tmaCustomerData);
-
-        return tmaCustomerData;
-    }
-
-    public TrainingTmaCustomerPopulator getTmaCustomerPopulator() {
-        return tmaCustomerPopulator;
-    }
-
-    public void setTmaCustomerPopulator(TrainingTmaCustomerPopulator tmaCustomerPopulator) {
-        this.tmaCustomerPopulator = tmaCustomerPopulator;
     }
 
     public TrainingTmaCustomerReversePopulator getTmaCustomerReversePopulator() {
@@ -117,5 +120,17 @@ public class TrainingTmaCustomerFacadeImpl implements TrainingTmaCustomerFacade 
 
     public void setTmaCustomerRequestConverter(TmaCustomerRequestConverter tmaCustomerRequestConverter) {
         this.tmaCustomerRequestConverter = tmaCustomerRequestConverter;
+    }
+
+    public TmaCustomerRequestConverter getTmaCustomerRequestConverter() {
+        return tmaCustomerRequestConverter;
+    }
+
+    public Converter<CustomerModel, CustomerData> getCustomerConverter() {
+        return customerConverter;
+    }
+
+    public void setCustomerConverter(Converter<CustomerModel, CustomerData> customerConverter) {
+        this.customerConverter = customerConverter;
     }
 }

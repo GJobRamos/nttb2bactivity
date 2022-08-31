@@ -1,6 +1,6 @@
 package br.com.ntt.b2b.facades.populators.requestPopulators;
 
-import br.com.ntt.b2b.Dto.TmaCountryRequest;
+import br.com.ntt.b2b.facades.Dto.TmaCountryRequest;
 import de.hybris.platform.commercefacades.user.data.CountryData;
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;

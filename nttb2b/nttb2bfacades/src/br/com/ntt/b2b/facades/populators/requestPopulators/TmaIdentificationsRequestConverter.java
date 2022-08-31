@@ -1,6 +1,6 @@
 package br.com.ntt.b2b.facades.populators.requestPopulators;
 
-import br.com.ntt.b2b.Dto.TmaIdentificationsRequest;
+import br.com.ntt.b2b.facades.Dto.TmaIdentificationsRequest;
 import de.hybris.platform.b2ctelcofacades.data.TmaIdentificationData;
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;

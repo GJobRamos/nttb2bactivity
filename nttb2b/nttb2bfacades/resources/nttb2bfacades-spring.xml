@@ -187,7 +187,7 @@
 
 	<!-- TmaCustomer ReversePopulator reference -->
 	<alias name="trainingCustomerReversePopulator" alias="customerReversePopulator"/>
-	<bean id="trainingCustomerReversePopulator" class="br.com.ntt.b2b.facades.populators.TrainingTmaCustomerReversePopulator" >
+	<bean id="trainingCustomerReversePopulator" class="br.com.ntt.b2b.facades.populators.TrainingTmaCustomerReversePopulator">
 		<property name="modelService" ref="modelService"/>
 		<property name="addressReversePopulator" ref="addressReversePopulator"/>
 		<property name="commonI18NService" ref="commonI18NService"/>
@@ -197,7 +197,7 @@
 
 	<!-- TmaCustomer Populator reference -->
 	<alias name="trainingCustomerPopulator" alias="customerPopulator"/>
-	<bean id="trainingCustomerPopulator" class="br.com.ntt.b2b.facades.populators.TrainingTmaCustomerPopulator" >
+	<bean id="trainingCustomerPopulator" class="br.com.ntt.b2b.facades.populators.TrainingTmaCustomerPopulator" parent="defaultCustomerPopulator">
 		<property name="currencyConverter" ref="currencyConverter"/>
 		<property name="languageConverter" ref="languageConverter"/>
 		<property name="customerNameStrategy" ref="customerNameStrategy"/>
@@ -232,9 +232,9 @@
 	<!-- TmaCustomer Facade reference -->
 	<alias name="trainingTmaCustomerFacade" alias="trainingTmaCustomerFacade"/>
 	<bean id="trainingTmaCustomerFacade" class="br.com.ntt.b2b.facades.tmaCustomer.impl.TrainingTmaCustomerFacadeImpl">
-		<property name="tmaCustomerPopulator" ref="trainingCustomerPopulator"/>
 		<property name="tmaCustomerReversePopulator" ref="trainingCustomerReversePopulator"/>
 		<property name="tmaCustomerService" ref="trainingTmaCustomerService"/>
 		<property name="tmaCustomerRequestConverter" ref="tmaCustomerRequestConverter" />
+		<property name="customerConverter" ref="customerConverter" />
 	</bean>
 </beans>

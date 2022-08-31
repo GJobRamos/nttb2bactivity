@@ -1,7 +1,9 @@
 package br.com.ntt.b2b.facades.tmaCustomer;
 
-import br.com.ntt.b2b.Dto.TmaCustomerRequest;
+import br.com.ntt.b2b.facades.Dto.TmaCustomerRequest;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
+
+import java.util.List;
 
 public interface TrainingTmaCustomerFacade {
 
@@ -15,4 +17,5 @@ public interface TrainingTmaCustomerFacade {
 
     void convertRequest(CustomerData target, TmaCustomerRequest source);
 
+    List<CustomerData> getAllTmaCustomers();
 }

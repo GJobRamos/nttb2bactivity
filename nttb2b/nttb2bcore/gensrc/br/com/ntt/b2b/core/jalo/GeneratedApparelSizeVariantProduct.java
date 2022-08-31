@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at 26 de ago de 2022 17:51:58                  ---
+ * --- Generated at 31 de ago de 2022 15:00:30                  ---
  * ----------------------------------------------------------------
  */
 package br.com.ntt.b2b.core.jalo;

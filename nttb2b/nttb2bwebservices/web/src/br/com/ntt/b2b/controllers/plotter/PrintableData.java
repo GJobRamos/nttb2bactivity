@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 
 public class PrintableData {
     private static final Logger LOGGER= Logger.getLogger(PrintableData.class);
-    public void printData(CustomerData tmaCustomerData) {
+    public static void printData(CustomerData tmaCustomerData) {
         Assert.notNull(tmaCustomerData, "PrintableData arameter source cannot be null.");
 
         LOGGER.info("CUSTOMER WITH ID: " + tmaCustomerData.getCustomerId());

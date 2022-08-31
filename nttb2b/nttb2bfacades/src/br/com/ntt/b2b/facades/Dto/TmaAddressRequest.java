@@ -1,4 +1,4 @@
-package br.com.ntt.b2b.Dto;
+package br.com.ntt.b2b.facades.Dto;
 
 public class TmaAddressRequest {
 

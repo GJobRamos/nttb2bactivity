@@ -2,21 +2,25 @@ package br.com.ntt.b2b.core.Dao.impl;
 
 import br.com.ntt.b2b.core.Dao.TrainingTmaCustomerDao;
 import de.hybris.platform.commercefacades.storesession.data.LanguageData;
+import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.servicelayer.internal.dao.AbstractItemDao;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.log4j.Logger;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TrainingTmaCustomerDaoImpl extends AbstractItemDao implements TrainingTmaCustomerDao {
 
     private static final Logger LOGGER = Logger.getLogger(TrainingTmaCustomerDaoImpl.class);
 
-    private final String TMA_CUSTOMER_ID_QUERY = "SELECT { " + CustomerModel.PK + "} FROM {" + CustomerModel._TYPECODE + "" +
-            "} WHERE {" + CustomerModel.CUSTOMERID +"} =?customerId"  ;
+    private final String TMA_CUSTOMER_ID_QUERY = "SELECT { " + CustomerModel.PK + "} FROM {" + CustomerModel._TYPECODE + "" + "} WHERE {" + CustomerModel.CUSTOMERID +"} =?customerId";
+
+    private final String TMA_CUSTOMER_ALL_QUERY = "SELECT { " + CustomerModel.PK + "} FROM {" + CustomerModel._TYPECODE + "" + "} WHERE {" + CustomerModel.CUSTOMERID +"} IS NOT NULL";
 
     @Override
     public CustomerModel getTmaCustomerById(String tmaCustomerId) {
@@ -51,13 +55,6 @@ public class TrainingTmaCustomerDaoImpl extends AbstractItemDao implements Train
 
         if (getModelService().isNew(tmaCustomerModel)) {
             getModelService().save(tmaCustomerModel);
-
-
-            LOGGER.info("...");
-            LOGGER.info("...");
-            LOGGER.info("...");
-            //printableData.printTitle("TMACUTOMER REGISTERED");
-            //printableData.printModel(newTmaCustomerModel);
         }
         if(getTmaCustomerById(tmaCustomerModel.getCustomerID()) == null)
             return false;
@@ -102,5 +99,17 @@ public class TrainingTmaCustomerDaoImpl extends AbstractItemDao implements Train
             return existingTmaCustomer;
     }
         return null;
+    }
+
+    public List<CustomerModel> getAllTmaCustomers() {
+        LOGGER.info("...");
+        LOGGER.info("...");
+        LOGGER.info("...");
+        LOGGER.info("Dao is searching by existing customers...");
+
+        SearchResult<CustomerModel> customers = getFlexibleSearchService().search(TMA_CUSTOMER_ALL_QUERY);
+        List<CustomerModel> tmaCustomersList = customers.getResult();
+
+        return tmaCustomersList == null? Collections.EMPTY_LIST : tmaCustomersList;
     }
 }

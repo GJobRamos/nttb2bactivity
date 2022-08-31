@@ -1,6 +1,6 @@
 package br.com.ntt.b2b.facades.populators.requestPopulators;
 
-import br.com.ntt.b2b.Dto.TmaAddressRequest;
+import br.com.ntt.b2b.facades.Dto.TmaAddressRequest;
 import de.hybris.platform.commercefacades.user.data.AddressData;
 import de.hybris.platform.commercefacades.user.data.CountryData;
 import de.hybris.platform.commercefacades.user.data.RegionData;

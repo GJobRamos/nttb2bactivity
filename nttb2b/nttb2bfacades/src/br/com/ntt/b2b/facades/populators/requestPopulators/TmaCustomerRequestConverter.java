@@ -1,10 +1,7 @@
 package br.com.ntt.b2b.facades.populators.requestPopulators;
 
-import br.com.ntt.b2b.Dto.TmaCustomerRequest;
-import br.com.ntt.b2b.facades.tmaCustomer.impl.TrainingTmaCustomerFacadeImpl;
+import br.com.ntt.b2b.facades.Dto.TmaCustomerRequest;
 import de.hybris.platform.b2ctelcofacades.data.TmaIdentificationData;
-import de.hybris.platform.commercefacades.storesession.converters.populator.CurrencyPopulator;
-import de.hybris.platform.commercefacades.storesession.converters.populator.LanguagePopulator;
 import de.hybris.platform.commercefacades.storesession.data.CurrencyData;
 import de.hybris.platform.commercefacades.storesession.data.LanguageData;
 import de.hybris.platform.commercefacades.user.data.AddressData;
