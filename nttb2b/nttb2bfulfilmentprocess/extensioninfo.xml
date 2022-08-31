@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+        	
+    
+    <extension abstractclassprefix="Generated" classprefix="Nttb2bFulfilmentProcess" managername="Nttb2bFulfilmentProcessManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="nttb2bfulfilmentprocess">
+                		
+        
+        <requires-extension name="acceleratorservices"/>
+                		
+        
+        <requires-extension name="ticketsystem"/>
+                		
+        
+        <coremodule generated="true" manager="br.com.ntt.b2b.fulfilmentprocess.jalo.Nttb2bFulfilmentProcessManager" packageroot="br.com.ntt.b2b.fulfilmentprocess"/>
+                		
+        
+        <meta key="extgen-template-extension" value="true"/>
+                		
+        
+        	
+    
+    </extension>
+        
+
+</extensioninfo>
