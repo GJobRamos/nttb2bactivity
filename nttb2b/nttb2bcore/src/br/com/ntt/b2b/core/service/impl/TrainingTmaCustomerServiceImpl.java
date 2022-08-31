@@ -6,6 +6,8 @@ import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.core.model.user.CustomerModel;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 public class TrainingTmaCustomerServiceImpl implements TrainingTmaCustomerService {
 
     private static final Logger LOGGER = Logger.getLogger(TrainingTmaCustomerServiceImpl.class);
@@ -49,6 +51,16 @@ public class TrainingTmaCustomerServiceImpl implements TrainingTmaCustomerServic
         LOGGER.info("Tma Customer Service received tmaCustomerModel and pass through DAO to update an existing Customer profile at the Data Base...");
 
         return trainingTmaCustomerDao.updateTmaCustomer(updatedTmaCustomerModel);
+    }
+
+    @Override
+    public List<CustomerModel> getAllTmaCustomers() {
+        LOGGER.info("...");
+        LOGGER.info("...");
+        LOGGER.info("...");
+        LOGGER.info("Tma Customer Service received the order to pass through Dao to search for all existing CustomerProfile in the Data Base...");
+
+        return trainingTmaCustomerDao.getAllTmaCustomers();
     }
 
     public TrainingTmaCustomerDaoImpl getTrainingTmaCustomerDao() {

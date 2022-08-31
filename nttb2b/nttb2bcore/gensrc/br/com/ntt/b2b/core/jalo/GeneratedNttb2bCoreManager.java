@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at 26 de ago de 2022 17:51:58                  ---
+ * --- Generated at 31 de ago de 2022 15:00:30                  ---
  * ----------------------------------------------------------------
  */
 package br.com.ntt.b2b.core.jalo;
@@ -43,6 +43,8 @@ public abstract class GeneratedNttb2bCoreManager extends Extension
 		tmp.put("cpf", AttributeMode.INITIAL);
 		tmp.put("rg", AttributeMode.INITIAL);
 		tmp.put("passport", AttributeMode.INITIAL);
+		tmp.put("address", AttributeMode.INITIAL);
+		tmp.put("language", AttributeMode.INITIAL);
 		ttmp.put("de.hybris.platform.jalo.user.Customer", Collections.unmodifiableMap(tmp));
 		tmp = new HashMap<String, AttributeMode>();
 		tmp.put("riskArea", AttributeMode.INITIAL);
@@ -62,6 +64,42 @@ public abstract class GeneratedNttb2bCoreManager extends Extension
 			ret.putAll(attr);
 		}
 		return ret;
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>Customer.address</code> attribute.
+	 * @return the address - Customer Address.
+	 */
+	public Address getAddress(final SessionContext ctx, final Customer item)
+	{
+		return (Address)item.getProperty( ctx, Nttb2bCoreConstants.Attributes.Customer.ADDRESS);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>Customer.address</code> attribute.
+	 * @return the address - Customer Address.
+	 */
+	public Address getAddress(final Customer item)
+	{
+		return getAddress( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>Customer.address</code> attribute. 
+	 * @param value the address - Customer Address.
+	 */
+	public void setAddress(final SessionContext ctx, final Customer item, final Address value)
+	{
+		item.setProperty(ctx, Nttb2bCoreConstants.Attributes.Customer.ADDRESS,value);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>Customer.address</code> attribute. 
+	 * @param value the address - Customer Address.
+	 */
+	public void setAddress(final Customer item, final Address value)
+	{
+		setAddress( getSession().getSessionContext(), item, value );
 	}
 	
 	/**
@@ -208,6 +246,42 @@ public abstract class GeneratedNttb2bCoreManager extends Extension
 	public String getName()
 	{
 		return Nttb2bCoreConstants.EXTENSIONNAME;
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>Customer.language</code> attribute.
+	 * @return the language - Customer Language.
+	 */
+	public Language getLanguage(final SessionContext ctx, final Customer item)
+	{
+		return (Language)item.getProperty( ctx, Nttb2bCoreConstants.Attributes.Customer.LANGUAGE);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>Customer.language</code> attribute.
+	 * @return the language - Customer Language.
+	 */
+	public Language getLanguage(final Customer item)
+	{
+		return getLanguage( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>Customer.language</code> attribute. 
+	 * @param value the language - Customer Language.
+	 */
+	public void setLanguage(final SessionContext ctx, final Customer item, final Language value)
+	{
+		item.setProperty(ctx, Nttb2bCoreConstants.Attributes.Customer.LANGUAGE,value);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>Customer.language</code> attribute. 
+	 * @param value the language - Customer Language.
+	 */
+	public void setLanguage(final Customer item, final Language value)
+	{
+		setLanguage( getSession().getSessionContext(), item, value );
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 package br.com.ntt.b2b.controllers;
 
-import br.com.ntt.b2b.Dto.TmaCustomerRequest;
+import br.com.ntt.b2b.facades.Dto.TmaCustomerRequest;
 import br.com.ntt.b2b.controllers.plotter.PrintableData;
 import br.com.ntt.b2b.facades.tmaCustomer.TrainingTmaCustomerFacade;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
@@ -9,12 +9,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
+import javassist.bytecode.stackmap.BasicBlock;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/tmaCustomer")
@@ -23,7 +26,6 @@ public class TmaCustomerController {
     @Resource(name = "trainingTmaCustomerFacade")
     private TrainingTmaCustomerFacade tmaCustomerFacade;
     private static final Logger LOGGER= Logger.getLogger(TmaCustomerController.class);
-    private PrintableData printableData;
 
 
         @PostMapping(value = "/registerTmaCustomer")
@@ -41,8 +43,8 @@ public class TmaCustomerController {
             tmaCustomerFacade.convertRequest(tmaCustomerData, tmaCustomerRequest);
 
             printTitle("REGISTER NEW TMACUSTOMER");
-            printableData = new PrintableData();
-            printableData.printData(tmaCustomerData);
+
+            PrintableData.printData(tmaCustomerData);
 
             LOGGER.info("...");
             LOGGER.info("...");
@@ -60,6 +62,32 @@ public class TmaCustomerController {
             }
         }
 
+        @GetMapping(value = "/getAllCustomersProfile")
+        @ResponseBody
+        @ApiOperation(  nickname = "getAllCustomersProfile",
+                        value = "Get all customers profile",
+                        notes = "Get all existing customers profile",
+                        authorizations = {@Authorization(value = "oauth2_client_credetials")})
+        @ApiBaseSiteIdParam
+        public void getAllCustomersProfile() {
+            printTitle("ALL EXISTING CUSTOMERS");
+
+            LOGGER.info("...");
+            LOGGER.info("...");
+            LOGGER.info("...");
+            LOGGER.info("Searching all TmaCustomers process started...");
+            LOGGER.info("");
+
+            List<CustomerData> customerList = tmaCustomerFacade.getAllTmaCustomers();
+
+            for (CustomerData tmaCustomer : customerList) {
+                LOGGER.info("customerID: " + tmaCustomer.getCustomerId() + " name: " + tmaCustomer.getName() + " cpf: " + tmaCustomer.getCpf() + " rg: " + tmaCustomer.getRg());
+            }
+
+            LOGGER.info("...");
+            LOGGER.info("Searching all TmaCustomers process finished...");
+        }
+
         @GetMapping(value = "/getCustomerProfile/{tmaCustomerId}")
         @ResponseBody
         @ApiOperation(  nickname = "getCustomerProfile",
@@ -67,7 +95,7 @@ public class TmaCustomerController {
                 notes = "Get an existing customer profile.",
                 authorizations = {@Authorization(value = "oauth2_client_credentials")})
         @ApiBaseSiteIdParam
-        public void getCustomerProfile(@ApiParam(defaultValue = "insert a valid Customer Id", required = true)  @PathVariable final String tmaCustomerId) {
+        public ResponseEntity getCustomerProfile(@ApiParam(defaultValue = "insert a valid Customer Id", required = true)  @PathVariable final String tmaCustomerId) {
 
             printTitle("SEARCHING TMACUSTOMER ID: " + tmaCustomerId);
 
@@ -77,17 +105,21 @@ public class TmaCustomerController {
             LOGGER.info("TmaCustomer search by id process started...");
             LOGGER.info("");
 
-            CustomerData tmaCustomerData = tmaCustomerFacade.getTmaCustomerById(tmaCustomerId);
+            try {
+                CustomerData tmaCustomerData = tmaCustomerFacade.getTmaCustomerById(tmaCustomerId);
 
-            if(tmaCustomerData != null) {
-                printableData = new PrintableData();
-                printableData.printData(tmaCustomerData);
-            } else {
+                PrintableData.printData(tmaCustomerData);
+                return ResponseEntity.status(200).build();
+
+            } catch (Exception ex) {
                 LOGGER.info("...");
                 LOGGER.info("...");
                 LOGGER.info("...");
                 LOGGER.info("ALERT: TMACUSTOMER WITH ID " + tmaCustomerId + " NOT FOUND!!!");
+                LOGGER.info(ex.getStackTrace());
+                return ResponseEntity.badRequest().build();
             }
+
         }
 
         @PutMapping(value = "/updateCustomerProfile")
@@ -110,8 +142,7 @@ public class TmaCustomerController {
 
             CustomerData updatedTmaCustomer = tmaCustomerFacade.updateTmaCustomer(tmaCustomerData);
 
-            printableData = new PrintableData();
-            printableData.printData(updatedTmaCustomer);
+            PrintableData.printData(updatedTmaCustomer);
 
             printTitle("TMACUSTOMER PROFILE UPDATE FINISHED");
         }
